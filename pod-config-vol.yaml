@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-config-vol
+  namespace: training
+  labels:
+    name: testing
+spec:
+  containers:
+  - name: testing
+    image: bitbull/webserver
+    ports:
+    - containerPort: 80
+
+    env:
+    - name: Test-ConfigMapp
+      valueFrom:
+        configMapKeyRef:
+          name: t-config
+          key: google.competition
+    
+    volumeMounts:
+    - name: t-config-vol
+      mountPath: "/etc/competition"
+      readOnly: true
+
+  volumes:
+  - name: t-config-vol
+    configMap:
+      name: t-config

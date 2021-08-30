@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: podpvc
+  namespace: training
+  labels:
+    name: testing
+spec:
+  containers:
+  - name: testing
+    image: bitbull/webserver
+    ports:
+    - containerPort: 80
+    volumeMounts:
+    - name: t-pvc-vol
+      mountPath: "/etc/competition"
+
+    env:
+    - name: Test-ConfigMapp
+      valueFrom:
+        configMapKeyRef:
+          name: t-config
+          key: google.competition
+    
+    volumeMounts:
+    - name: t-config-vol
+      mountPath: "/etc/competition"
+      readOnly: true
+
+  volumes:
+  - name: t-config-vol
+    configMap:
+      name: t-config
+  - name: t-pvc-vol
+    persistentVolumeClaim:
+      claimName: t-pvc

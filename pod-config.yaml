@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: podconfig
+  namespace: training
+  labels:
+    name: testing
+spec:
+  containers:
+  - name: testing
+    image: bitbull/webserver
+    ports:
+    - containerPort: 80
+
+    env:
+    - name: Test-ConfigMapp
+      valueFrom:
+        configMapKeyRef:
+          name: t-config
+          key: Description

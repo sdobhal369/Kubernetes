@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: statefulset-pvc
+  namespace: training
+  labels:
+    app: state
+spec:
+  serviceName: ""
+  replicas: 2
+  selector:
+    matchLabels:
+      app: state
+  template:
+    metadata:
+      labels:
+        app: state
+    spec:
+      containers:
+      - name: testing
+        image: bitbull/webserver
+        volumeMounts: 
+        - name: state-vol
+          mountPath: "/tmp/sts"
+      volumes: 
+      - name: state-vol
+        persistentVolumeClaim:
+          claimName: sts-pvc
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: sts-pvc
+  namespace: training
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+

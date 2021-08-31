@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: deamon
+  namespace: training
+  labels:
+    app: state
+spec:
+  selector:
+    matchLabels:
+      app: state
+  template:
+    metadata:
+      labels:
+        app: state
+    spec:
+      containers:
+      - name: testing
+        image: bitbull/webserver
+

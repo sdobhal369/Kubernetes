@@ -2,7 +2,7 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: my-cronjob
-  namespace: training
+  namespace: training1
 spec:
   schedule: "*/1 * * * *"        # Job will run every minute
   concurrencyPolicy: "Replace"   # how to treat concurrent job within a cronjob.[Allow (allow cronjobs to run concurrently), Forbid (forbid concurrent runs,skipping the next run if previous has not finished yet), Replace (cancels the currently running job and replaces it with new one)]

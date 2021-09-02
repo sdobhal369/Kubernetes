@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: my-jobs
-  namespace: training
+  namespace: training1
 
 spec:
   parallelism: 2              # Specify how many pod replicas a job should run in parallel

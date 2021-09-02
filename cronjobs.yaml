@@ -1,0 +1,21 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: my-cronjob
+  namespace: training
+spec:
+  schedule: "*/1 * * * *"        # Job will run every minute
+  concurrencyPolicy: "Replace"   # how to treat concurrent job within a cronjob.[Allow (allow cronjobs to run concurrently), Forbid (forbid concurrent runs,skipping the next run if previous has not finished yet), Replace (cancels the currently running job and replaces it with new one)]
+  startingDeadlineSeconds: 80    # deadline for starting job, if it miss its scheduled time then missed job execution will be counted as failed one
+  suspend: true                  # suspension of cronjob. if true, then all subsequent execution will be suspended
+  successfulJobsHistoryLimit: 2  # how many completed job should be kept
+  failedJobsHistoryLimit: 1      # how many failed job should be kept
+  jobTemplate:             
+    spec:
+      template:
+        spec:
+          containers:
+          - name: my-container
+            image: ubuntu
+            command: ["echo", "Say Something Plss....."]
+          restartPolicy: OnFailure  # Supports only Never & OnFailure

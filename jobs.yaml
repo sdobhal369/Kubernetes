@@ -1,0 +1,18 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: my-jobs
+  namespace: training
+
+spec:
+  parallelism: 2              # Specify how many pod replicas a job should run in parallel
+  completions: 3              # Specify how many successful pod compleletions are needed to marka job completed
+  activeDeadlineSeconds: 80   # Maximum duration the job can run
+  backoffLimit: 3             # Specify the number of retry for a job.
+  template:                   # Specify the template for the pod which is created by controller
+    spec:
+      containers:
+      - name: my-container
+        image: ubuntu
+        command: ["echo",  "Say Something Plss..."]
+      restartPolicy: OnFailure    # Never (Do not restart the job),OnFailure (Restart the job only if it fails),Always (Always restart a job) 

@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: second-pod
+  name: firstpod
   namespace: training
   labels:
-    name: testing
+    app: testing
 spec:
   containers:
   - name: testing

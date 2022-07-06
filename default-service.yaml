@@ -3,7 +3,8 @@ kind: Service
 metadata:
   name: test-service
   namespace: training
-
+  labels:
+    app: testing
 spec:
   selector:
     app: testing
